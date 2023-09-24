@@ -1,21 +1,20 @@
 {
-  "name": "noita-together",
+  "name": "nt-monorepo-wrapper",
   "private": true,
   "version": "0.9.40",
   "packageManager": "yarn@3.5.1",
   "workspaces": [
-    "nt-app/",
-    "nt-web-app/",
-    "nt-server/",
-    "shared-lib/"
+    "client/",
+    "backend/",
+    "protobuf/"
   ],
   "scripts": {
-    "client": "yarn workspace nt-app electron:serve",
-    "serverInitOnce": "yarn workspace nt-web-app serverInitOnce",
-    "server-http": "yarn workspace nt-web-app serve-http",
-    "server-ws": "yarn workspace nt-web-app serve-websocket",
-    "serverDev": "yarn workspace nt-web-app serveDev",
-    "buildClient": "yarn workspace nt-app electron:build",
+    "client": "yarn workspace client electron:serve",
+    "serverInitOnce": "yarn workspace backend serverInitOnce",
+    "server-http": "yarn workspace backend serve-http",
+    "server-ws": "yarn workspace backend serve-websocket",
+    "serverDev": "yarn workspace backend serveDev",
+    "buildClient": "yarn workspace client electron:build",
     "regenerate-proto-experimental": "pbjs -t static-module --ts --no-comments --no-delimited --out websocket/messages.ts websocket/messages.proto",
     "regenerate-proto-server": "pbjs -t static-module --wrap es6 --no-comments --no-delimited --out nt-web-app/websocket/messages.js protobuf/messages.proto && pbjs -t static-module --no-delimited protobuf/messages.proto | pbts -o nt-web-app/websocket/messages.d.ts -",
     "regenerate-proto-client": "node copy.js ./protobuf/messages.proto ./nt-app/public/messages.proto",
